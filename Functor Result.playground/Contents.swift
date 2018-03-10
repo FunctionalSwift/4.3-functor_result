@@ -14,3 +14,16 @@ enum Result<A, E> {
     }
 }
 
+enum Error {
+    case mustBeInt
+}
+
+func mustBeInt(_ string: String) -> Result<Int, Error> {
+    return Int(string).map { .success($0) } ?? .failure(.mustBeInt)
+}
+
+mustBeInt("10") // success(10)
+
+mustBeInt("5") // success(5)
+
+mustBeInt("swift") // failure(Error.mustBeInt)
